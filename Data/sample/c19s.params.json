@@ -1,0 +1,301 @@
+{
+  "ageDistributionData": {
+    "data": [
+      {
+        "ageGroup": "0-9",
+        "population": 8044056
+      },
+      {
+        "ageGroup": "10-19",
+        "population": 7642475
+      },
+      {
+        "ageGroup": "20-29",
+        "population": 8558707
+      },
+      {
+        "ageGroup": "30-39",
+        "population": 9295025
+      },
+      {
+        "ageGroup": "40-49",
+        "population": 8604251
+      },
+      {
+        "ageGroup": "50-59",
+        "population": 9173467
+      },
+      {
+        "ageGroup": "60-69",
+        "population": 7286778
+      },
+      {
+        "ageGroup": "70-79",
+        "population": 5830636
+      },
+      {
+        "ageGroup": "80+",
+        "population": 3450616
+      }
+    ],
+    "name": "United Kingdom of Great Britain and Northern Ireland"
+  },
+  "scenarioData": {
+    "data": {
+      "epidemiological": {
+        "hospitalStayDays": 3,
+        "icuStayDays": 14,
+        "infectiousPeriodDays": 3,
+        "latencyDays": 3,
+        "overflowSeverity": 2,
+        "peakMonth": 0,
+        "r0": {
+          "begin": 2.9,
+          "end": 3.54
+        },
+        "seasonalForcing": 0
+      },
+      "mitigation": {
+        "mitigationIntervals": [
+          {
+            "color": "#cccccc",
+            "name": "Intervention 0",
+            "timeRange": {
+              "begin": "2020-01-07T00:00:00.000Z",
+              "end": "2020-01-29T00:00:00.000Z"
+            },
+            "transmissionReduction": {
+              "begin": 99,
+              "end": 99
+            }
+          },
+          {
+            "color": "#cccccc",
+            "name": "Intervention 1",
+            "timeRange": {
+              "begin": "2020-01-29T00:00:00.000Z",
+              "end": "2020-02-19T00:00:00.000Z"
+            },
+            "transmissionReduction": {
+              "begin": 61.1,
+              "end": 72.9
+            }
+          },
+          {
+            "color": "#cccccc",
+            "name": "Intervention 2",
+            "timeRange": {
+              "begin": "2020-02-19T00:00:00.000Z",
+              "end": "2020-03-26T00:00:00.000Z"
+            },
+            "transmissionReduction": {
+              "begin": 11.5,
+              "end": 12.5
+            }
+          },
+          {
+            "color": "#cccccc",
+            "name": "Intervention 3",
+            "timeRange": {
+              "begin": "2020-03-26T00:00:00.000Z",
+              "end": "2020-04-19T00:00:00.000Z"
+            },
+            "transmissionReduction": {
+              "begin": 57.1,
+              "end": 68.9
+            }
+          },
+          {
+            "color": "#cccccc",
+            "name": "Intervention 4",
+            "timeRange": {
+              "begin": "2020-04-19T00:00:00.000Z",
+              "end": "2020-05-13T00:00:00.000Z"
+            },
+            "transmissionReduction": {
+              "begin": 64.1,
+              "end": 75.9
+            }
+          },
+          {
+            "color": "#cccccc",
+            "name": "Intervention 5",
+            "timeRange": {
+              "begin": "2020-05-13T00:00:00.000Z",
+              "end": "2020-06-03T00:00:00.000Z"
+            },
+            "transmissionReduction": {
+              "begin": 66.2,
+              "end": 77.8
+            }
+          },
+          {
+            "color": "#cccccc",
+            "name": "Intervention 6",
+            "timeRange": {
+              "begin": "2020-06-03T00:00:00.000Z",
+              "end": "2020-06-28T00:00:00.000Z"
+            },
+            "transmissionReduction": {
+              "begin": 63.1,
+              "end": 74.9
+            }
+          },
+          {
+            "color": "#cccccc",
+            "name": "Intervention 7",
+            "timeRange": {
+              "begin": "2020-06-28T00:00:00.000Z",
+              "end": "2020-07-24T00:00:00.000Z"
+            },
+            "transmissionReduction": {
+              "begin": 59.1,
+              "end": 70.9
+            }
+          },
+          {
+            "color": "#cccccc",
+            "name": "Intervention 8",
+            "timeRange": {
+              "begin": "2020-07-24T00:00:00.000Z",
+              "end": "2020-08-27T00:00:00.000Z"
+            },
+            "transmissionReduction": {
+              "begin": 54.2,
+              "end": 65.8
+            }
+          },
+          {
+            "color": "#cccccc",
+            "name": "Intervention 9",
+            "timeRange": {
+              "begin": "2020-08-27T00:00:00.000Z",
+              "end": "2020-10-02T00:00:00.000Z"
+            },
+            "transmissionReduction": {
+              "begin": 45.9,
+              "end": 56.1
+            }
+          },
+          {
+            "color": "#cccccc",
+            "name": "Intervention 10",
+            "timeRange": {
+              "begin": "2020-10-02T00:00:00.000Z",
+              "end": "2020-12-16T00:00:00.000Z"
+            },
+            "transmissionReduction": {
+              "begin": 57.1,
+              "end": 68.9
+            }
+          }
+        ]
+      },
+      "population": {
+        "ageDistributionName": "United Kingdom of Great Britain and Northern Ireland",
+        "caseCountsName": "United Kingdom of Great Britain and Northern Ireland",
+        "hospitalBeds": 139647,
+        "icuBeds": 4114,
+        "importsPerDay": 0.1,
+        "initialNumberOfCases": 144434,
+        "populationServed": 66488991,
+        "seroprevalence": 11.39
+      },
+      "simulation": {
+        "numberStochasticRuns": 15,
+        "simulationTimeRange": {
+          "begin": "2020-09-16T00:00:00.000Z",
+          "end": "2020-12-15T00:00:00.000Z"
+        }
+      }
+    },
+    "name": "United Kingdom of Great Britain and Northern Ireland"
+  },
+  "schemaVer": "2.2.0",
+  "severityDistributionData": {
+    "data": [
+      {
+        "ageGroup": "0-9",
+        "confirmed": 5,
+        "critical": 5,
+        "fatal": 10,
+        "isolated": 0,
+        "palliative": 0,
+        "severe": 1
+      },
+      {
+        "ageGroup": "10-19",
+        "confirmed": 5,
+        "critical": 10,
+        "fatal": 10,
+        "isolated": 0,
+        "palliative": 0,
+        "severe": 3
+      },
+      {
+        "ageGroup": "20-29",
+        "confirmed": 10,
+        "critical": 10,
+        "fatal": 10,
+        "isolated": 0,
+        "palliative": 0,
+        "severe": 3
+      },
+      {
+        "ageGroup": "30-39",
+        "confirmed": 15,
+        "critical": 15,
+        "fatal": 10,
+        "isolated": 0,
+        "palliative": 0,
+        "severe": 3
+      },
+      {
+        "ageGroup": "40-49",
+        "confirmed": 20,
+        "critical": 20,
+        "fatal": 10,
+        "isolated": 0,
+        "palliative": 0,
+        "severe": 6
+      },
+      {
+        "ageGroup": "50-59",
+        "confirmed": 20,
+        "critical": 25,
+        "fatal": 20,
+        "isolated": 0,
+        "palliative": 0,
+        "severe": 10
+      },
+      {
+        "ageGroup": "60-69",
+        "confirmed": 25,
+        "critical": 30,
+        "fatal": 30,
+        "isolated": 0,
+        "palliative": 5,
+        "severe": 25
+      },
+      {
+        "ageGroup": "70-79",
+        "confirmed": 30,
+        "critical": 25,
+        "fatal": 40,
+        "isolated": 0,
+        "palliative": 10,
+        "severe": 35
+      },
+      {
+        "ageGroup": "80+",
+        "confirmed": 40,
+        "critical": 15,
+        "fatal": 40,
+        "isolated": 0,
+        "palliative": 20,
+        "severe": 50
+      }
+    ],
+    "name": "Adjusted"
+  }
+}
