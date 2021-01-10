@@ -7,4 +7,8 @@ Add the data of the models we are using imported from https://covid19-scenarios.
 ## Notebooks
 Trial stage of notebooks.
 
+## How to run
+
+`python plots.py --models base`
+
 
