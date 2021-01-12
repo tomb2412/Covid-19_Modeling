@@ -1,0 +1,3 @@
+Transmission Rate reduction from 29-42, over a week of intervals. 
+First case: 01/02
+times = [-22, -15, -8, -1, 6, 13, 20, 27, 34, 41, 48, 55]
