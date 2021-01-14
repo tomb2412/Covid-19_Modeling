@@ -1,0 +1,153 @@
+\begin{document}
+\newpage
+\data % Do not delete this command.
+-Computational model \\
+-Check theoretical predictions of model with actual data
+
+-Kyriacos & Tom
+
+\section{Computational Model} (Tom)
+The beauty of compartmental models such as SIR lies in their ease of expansion. The complexities of a real pandemic can be introduced one compartment at a time, to explore specific aspects of the disease dynamics, only at the cost of another differential equation. In the past this may have become the burden of a mathematician, however now, with modern day computing, this flexible expansion makes compartmental models highly compatible with computer simulations. There are two main approaches to pandemic computer modelling. The first, uses a stochastic agent-based approach, where agents model carriers who transmit the disease through contact with other susceptible agents. The second, utilises computing power to solve complex systems of differential equations which characterise a compartment’s evolution through time. These differential equations can also include a stochastic element using random numbers, to replicate the uncertain way in which pandemics vary. Both methods allow for more realistic compartments to be introduced which interact with the disease in different ways, such different age groups having separate fatality rates. These computational tools have expanded the repertoire of the epidemiologist, allowing more insightful results at quicker speeds. This section explores the simplest of these computational simulations and uses a stochastic differential equation-based model to demonstrate possible expansions and explore the effectiveness of certain intervention measures. (Before a comparison with the real data, and the challenges these models still face.)\\
+
+\subsubsection{Types of Simulation}
+
+In agent-based simulations, agents model the disease carriers, such as people, who different statuses according to their compartments. The simulation generally begins with a small, infected population, which interacts with the large susceptible one. Disease spread can be modelled through contact between susceptible and infected agents, this transmission mechanism is more realistic and  a major advantage of agent-based modelling.  Some simulations model agent behaviour like gas particles undergoing a random walk, whereas more complex simulations may introduce contact networks mimicking family and friendship circles. Recording the population sizes each timestep gives insight into the disease dynamics throughout the pandemic which can be employed by health agencies to explore and compare what-if scenarios.\\
+
+Differential equation-based simulations exploit the efficiency of modern-day algorithms to solve systems of linear differential equations, such as SIR, introduced in the maths section. In essence, these simulations break down the pandemic evolution into digestible eigenvalue problems, which lend themselves well to the routine nature of computational processes. The differential equations are derived from the epidemiological models and often contain age categories and hospital and ICU statuses. These simulations expand the compartmental models, to reflect a more continuous set of population characteristics. \\
+
+All types of computer modelling require input parameters to govern the fatality rate, recovery rate and more. Historically these were notoriously challenging to obtain, however, computational advancements have also allowed epidemiologists to explore the parameter space much more closely. With large databases to draw from, and an increased availability of information, estimating parameter values has become more accurate. This increases the value and reliability of the simulation results. However, despite the improvements disease parameters are still challenging to obtain, and extensive analysis is still required to understand the influence of different demographics on these inputs, for example, age on the fatality rate. Conversely, computer modelling can also be used to determine parameter values, by running the simulation with different inputs and seeing which results best fit the data. With these tools epidemiological field research and simulations work hand in hand to build more realistic predictions into the outcomes of a disease.\\
+
+Whilst the input parameters present challenges, the results of a simulation may also be ambiguous as the priorities of the analyst may vary. This might be influenced by a country's political agenda weighing the disruption on the economy against the health of its citizens. Quantify this societal burden is often focused on health; frequently simulations measure infection rates against health care capacities, leading to estimates of total fatalities. Other measures might be total infected or pandemic duration, reflecting the long-term disruption of the outbreak. Another consideration is the availability of high-quality data to compare results against and estimate input parameters. Therefore, total fatalities is a favourable measure of pandemic success as the reporting of deaths linked to a disease is more easily identified. This is particularly true in western countries, where health care systems record data more thoroughly, both during a pandemic and normally. This gives more reliable statistics such as excess deaths and direct fatalities, along with following the general consensus that deaths should be avoided. In our investigations, we have followed this reasoning and compare the effectiveness of an intervention by the number of deaths it avoids. 
+
+
+\subsubsection{Analysis} 
+The real value from these models comes when comparing results from different simulations to investigate how changing the initial conditions affects an output parameter, which may assess the overall damage of an outbreak. This is known as sensitivity analysis and is frequently used to assess how intervention measures affect the disease dynamics, particularly, which measure and when is most effective at reducing the societal burden. 
+Quantify the societal burden is unfortunately not well defined, with different countries perusing different agendas.
+
+
+\subsection{Introduction of Model}
+To compare computational models' effectiveness in the pandemic of the Covid-19 virus, we have used a model developed by the neherlab group \cite{Noll}.We have chosen this model because it uses an age-structured generalized SEIR model that was developed in our Math section and it builds on our understanding of the model. The code was freely available on Github \cite{repo} and we were able to make small changes and explore its parameters. The model allows us to explore the dynamics of a COVID-19 outbreak in a given community and assess the healthcare system's associated burden. It is based upon different epidemiological assumptions and potential mitigation strategies.
+
+\subsection{Model Description}
+Following the SIR mechanics, susceptible individuals $S$ are infected through contact with infectious individuals. While the individual is infectious, they can infect on average $R_0$ exposed individuals $E$ in an average time $t_l$. On a time-scale of $t_i$, all infected individuals $I$ progress to a symptomatic state after a latency period (time from infection to onset of symptoms) of $3.5$ days \cite{latency}. After this period, infectious individuals either recover or move to more severe stages of the disease, where they become hospitalized $H$ on a time scale of $t_h$. Severely ill individuals then move to a critical stage $C$, and they are admitted to the ICU. These individuals either recover or die $D$ on a time scale $t_c$. The probability of each individual progressing to a later stage of the disease depends on the individual's age. We retain the assumption that recovered individuals $R$ have immunity and cannot be infected again.\\
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=1.0\columnwidth]{simulation_plots/schematic_diagram.png} 
+\caption{Schematic illustration of model as described above. S, E, I, R, H, D, C, O represent susceptible, exposed, infectious, recovered, hospitalized, dead, critical and overflow stages of individuals respectively. \cite{Noll} }
+\label{fig:fig1}
+\end{figure}
+
+Age-specific parameters are also included and we index sub populations with age classes $\alpha$. In addition, $m_\alpha$ is the fraction of infectious individuals that are asymptomatic, $c_\alpha$ is the fraction of cases that turn critical, $p_\alpha$ the fraction that goes to palliative care, and $f_\alpha$ the fraction that becomes fatal.
+
+The transmission rate is defined as:
+
+\begin{equation}
+    \beta_{a}(t)=R_{0} \zeta_{a} M(t)\left(1+\varepsilon \cos \left(2 \pi\left(t-t_{\max }\right)\right)\right) / t_{i}
+\end{equation}
+
+where $\zeta_{a}$ is the degree of isolation of specific age groups from the rest of the population, $M(t)$ is the duration of mitigation measures, $\varepsilon$ is the seasonal variation in transmission and $t_{\max}$ the time where the transmission is maximized.
+
+Combining all the above, the model solves the following differential equations:
+
+\begin{equation} \label{eqn:model}
+    \begin{aligned}
+        \frac{d S_{a}(t)}{d t}=-N^{-1} \beta_{a}(t) S_{a}(t) \sum_{b} I_{b}(t)  \\[5pt]
+        \frac{d E_{a}^{1}(t)}{d t}=N^{-1} \beta_{a}(t) S_{a}(t) \sum_{b} I_{b}(t)-3 E_{a}^{1}(t) / t_{l} \\[5pt]
+        \frac{d E_{a}^{2}(t)}{d t} =3 E_{a}^{1}(t) / t_{l}-3 E_{a}^{2}(t) / t_{l} \\[5pt]
+        \frac{d E_{a}^{3}(t)}{d t} =3 E_{a}^{2}(t) / t_{l}-3 E_{a}^{3}(t) / t_{l} \\[5pt]
+        \frac{d I_{a}(t)}{d t} =3 E_{a}^{3}(t) / t_{l}-I_{a}(t) / t_{i} \\[5pt]
+        \frac{d H_{a}(t)}{d t} =\left(1-m_{a}\right) I_{a}(t) / t_{i}+\left(1-f_{a}\right) C_{a}(t) / t_{c}-H_{a}(t) / t_{h} \\[5pt]
+        \frac{d C_{a}(t)}{d t} =c_{a} H_{a}(t) / t_{h}-C_{a}(t) / t_{c} \\[5pt]
+        \frac{d R_{a}(t)}{d t} =m_{a} I_{a}(t) / t_{i}+\left(1-c_{a}\right) H_{a}(t) / t_{h} \\[5pt]
+        \frac{d D_{a}(t)}{d t} =f_{a} C_{a}(t) / t_{c}+p_{a} H_{a}(t) / t_{h} \\[5pt]
+        
+    \end{aligned}
+\end{equation}
+
+The above equations are consistent with the simple SIR section (ref) that was introduced and derived above. The only difference is that it constitutes of three exposed periods ($E^1$, $E^2$, $E^3$), corresponding to ...
+The last equation in (\ref{eqn:model}) is of particular importance since it will determine the number of dead individuals in the pandemic and we will use parameter $D$ as one of the main results that determine the effectiveness of interventions in section \ref{sssec:num1}. Moreover, that if the capacity of ICU is exceeded, the infected individuals $I$ enter an overflow category $O$ associated with a higher fatality rate, with younger patients triggered first. Seasonal variation is modeled using a sinusoidal function with an annual period (like influenza) \cite{Kissler}. 
+
+\subsection{Model Parameters}
+
+The parameters of the model fall into two categories - population parameters and epidemiological parameters. The population parameters include: the population of the United Kingdom of Great Britain and Northern Ireland, as published in the ECDC website \cite{ecdc}; seroprevalence, which is the portion of the population that is immune to the virus (estimated from infection fatality ratio) \cite{sero}; the age distribution of the United Kingdom, obtained from the UNSD database API (United Nations Statistics Division, 2020) \cite{agedist}; the initial number of cases \cite{ecdc}, and the total number of beds in hospitals \cite{eurostat} and Intensive Care Units (ICU) \cite{icu}. The epidemiological parameters include the average value of $R_0$ given from the UK Government website \cite{covuk}; latency and infectious period \cite{latency}, and the duration of hospital and ICU stays \cite{stays}. These parameters are then compared to the UK's confirmed cases, as announced in the government's website. \\
+
+We ran models that include the above parameters that do not change throughout the epidemic, and included interventions to inspect their effect on the virus' overall growth. Each intervention is specified with a range of multiplicative reductions of the base growth rate. Control measures are specified as time intervals during which transmission is reduced by a certain amount.
+
+\subsection{Results}
+
+\subsubsection{Base Run Parameters}
+
+
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=1.0\columnwidth]{simulation_plots/base_final_trajectories.png} 
+\caption{Trajectories of the number of cases, people in need for hospitalization and fatalities. Base run with no intervention measures and parameters as specified in table (\ref{tab:base})}
+\label{fig:fig2}
+\end{figure}
+
+As seen from figure [\ref{fig:fig2}], if no intervention measures are in place the number of cases has a large peak around the end of March and it exponentially decreases within the next 4 months. It is observed that the ICU has reached its maximum number of patients before mid-March and for the next three months it is at maximum capacity. This also reflects the number of fatalities in this scenario as seen from figure [\ref{fig:fig3}].  \\
+
+A meaningful comparison with this curve is to alter some of the epidemiological parameters.
+
+\subsubsection{Mitigation} \label{sssec:num1}
+
+In order to explore the dynamics of COVID-19 we introduce intervention measures in our model. To specify individual interventions we introduce an "effectiveness" parameter $\epsilon_\gamma \in [0,1]$, indexing with $\gamma$ for each intervention. At any instant, the cumulative efficacy of all interventions is calculated as:
+
+\begin{equation}
+    \mathcal{M}(t)=\prod_{\gamma \in M(t)}\left(1-\epsilon_{\gamma}\right)
+\end{equation}
+
+where the product runs over all measures $\mathcal{M}(t)$ in effect in time $t$. In the absence of any intervention measures $\mathcal{M} = 1$. 
+
+Multiple studies have been made in exploring the effects of intervention measures in the dynamics of the COVID-19 pandemic, and we use the results of a study which focused mainly in the effects of these interventions in Europe \cite{int1}. \\
+
+As an example we explore the effects of school closure for a period of 5 months (01-03-2020 -- 01-08-2020), a month after the start of the simulation. The Study \cite{int1} estimates a relative reduction of $R_t$ of $0-23\%$. Introducing this measure in our model, we obtain the graph in figure (\ref{fig:fig4}). \\
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=1.0\columnwidth]{simulation_plots/school_close_trajectories.png} 
+\caption{Trajectories of the number of cases, people in need for hospitalization and fatalities. Run with intervention of school closure with 0-23 \% reduction in the transmission and parameters as specified in table (\ref{tab:base})}
+\label{fig:fig4}
+\end{figure}
+
+We can immediately observe that the peak has moved to approximately one month later and it has flattened. Quantitatively, we can see that fatalities decreased by 4.4 \% [ref table]. We can also observe that this had no effect in the time the ICU capacity was exceeded. This reflects the fact that the school closure was not enough in lifting the strain from the healthcare system. \\
+
+
+The above, was the effect of imposing a single restriction - the closure of schools for a 5-month period. Now we explore the effects of imposing further restrictions to the community. We introduce the following interventions in our model: Shutting down public events (0-20 \% reduction in $R_t$), the voluntary self isolation of individuals (2-20 \% reduction in $R_t$) and the urge of social distancing by the government  (0-24 \% reduction in $R_t$). All these measures have been in place for the same 5 month period (01-03-2020 -- 01-08-2020) as the school closure. The results of this model are shown in figure (\ref{fig:fig5}).
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=1.0\columnwidth]{simulation_plots/school_sd_pe_iso_trajectories.png} 
+\caption{Trajectories of the number of cases, people in need for hospitalization and fatalities. Run with intervention of school closure, end of public events, self isolation and social distancing for a 5-month period: 01-03-2020 -- 01-08-2020. Epidemiological parameters specified in table (\ref{tab:base})}
+\label{fig:fig5}
+\end{figure}
+
+We can easily observe that imposing the above restrictions to the community significantly changes the course of the pandemic. The curve peak has shifted to mid-April, the graph has flattened and the ICU capacity was overflown 10 days later (13-03-2020). The fatalities have decreased to 279,500, a massive reduction of 26\% with respect to the base run (\ref{fig:fig2}). \\
+
+If we further impose a hard lockdown (define what this means...) the reduction in the transmission ranges between 75-85 \%. Adding this measure to our model, we obtain figure (\ref{fig:fig6}). We can observe that the 5-month lockdown had a drastic effect in the course of the pandemic, decreasing the number of fatalities by 97\% (ref table), the ICU capacity was never exceeded, and immediately after the lockdown started the number of cases experienced a steady decrease. One important observation to make however, is that almost all of the population has remained susceptible to the disease. This means that once the lockdown is lifted the population would experience a second wave of the disease potentially larger than the first one, with even more fatalities. All results of these runs are summarized in table \\
+
+\begin{table} [hbtp]
+    \caption{Some caption}
+    \label{tab:someLable}
+    \includegraphics[width=\textwidth,height=textheight,keepaspectratio]{tables/interventions_table.pdf}
+\end{table}
+
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=1.0\columnwidth]{simulation_plots/all_int_trajectories.png} 
+\caption{Trajectories of the number of cases, people in need for hospitalization and fatalities. Run with intervention of school closure, end of public events, self isolation, social distancing and hard lockdown for a 5-month period: 01-03-2020 -- 01-08-2020. Epidemiological parameters specified in table (\ref{tab:base})}
+\label{fig:fig6}
+\end{figure}
+
+In order to explore the effect of the length of a lockdown in our epidemiological model we simulated a one-month, two-month and five-month lockdown (ending on 01-04-2020, 01-05-2020, 01-08-2020 respectively). The results are summarized in table (ref table) and the trajectories of the corresponding models are plotted in figure (fig). Discuss results.... \\
+
+However, we understand that in this case we needed to extend the simulation range to a longer period to observe the effects of the lockdown in the future. We extended the simulation to end on the 01-02-2021, one year after the simulation was started and the results are plotted on figure (fig). Discuss...
+
+
+
+(Now start discussing the timings of all these restrictions, effects of imposing lockdown too late or too early, and maybe play around with epidemiological parameters)
+\clearpage
+\end{document}

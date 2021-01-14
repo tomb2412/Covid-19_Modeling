@@ -71,17 +71,17 @@ if __name__ == "__main__":
 
         # Exclude mild cases to check strain on the healthcare system
 
-    # with plt.style.context('fivethirtyeight'):
-        fig, ax = plt.subplots(figsize = (7,7))
-        labels = ['Severe: ' + f"{x2[-1]:,}"  , 'Critical: ' + f"{x3[-1]:,}", 'Fatal: ' + f"{x4[-1]:,}"]
-        sizes = [x2[-1], x3[-1], x4[-1]]
-        ax.pie(sizes, shadow=False, startangle=90, autopct='%1.1f%%', explode = (0, 0, 0), frame=True)
-        ax.legend(labels, loc="best")
-        ax.axis('equal')
-        ax.get_xaxis().set_visible(False)
-        ax.get_yaxis().set_visible(False)
-        # ax.set_facecolor('white')
-        # ax.set_title('Summary of outcomes excluding mild cases', fontsize=18)
-        plt.tight_layout()
-        fig.savefig('plots/{}_piechart.png'.format(model), dpi=200) #save the figure
+        with plt.style.context('fivethirtyeight'):
+            fig, ax = plt.subplots(figsize = (7,7))
+            labels = ['Severe: ' + f"{x2[-1]:,}"  , 'Critical: ' + f"{x3[-1]:,}", 'Fatal: ' + f"{x4[-1]:,}"]
+            sizes = [x2[-1], x3[-1], x4[-1]]
+            ax.pie(sizes, shadow=False, startangle=90, autopct='%1.1f%%', explode = (0, 0, 0), frame=True)
+            ax.legend(labels, loc="best")
+            ax.axis('equal')
+            ax.get_xaxis().set_visible(False)
+            ax.get_yaxis().set_visible(False)
+            # ax.set_facecolor('white')
+            # ax.set_title('Summary of outcomes excluding mild cases', fontsize=18)
+            plt.tight_layout()
+            fig.savefig('plots/{}_piechart.png'.format(model), dpi=200) #save the figure
 
